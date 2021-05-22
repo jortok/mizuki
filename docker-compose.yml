@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    restart: unless-stopped
+    container_name: db
+    command: --default-authentication-plugin=mysql_native_password
+    hostname: db
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mizuki
+      MYSQL_USER: mizuki
+      MYSQL_PASSWORD: mizuki
+    ports:
+      - 3306:3306
+  www:
+    image: nginx
+    restart: unless-stopped
+    container_name: www
+    hostname: www
+    volumes:
+      - ./html:/usr/share/nginx/html
+    ports:
+      - 80:80
